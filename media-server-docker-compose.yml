@@ -1,0 +1,11 @@
+services:
+  video-recorder:
+    container_name: ${MEDIA_SERVER_CONT_NAME}
+    image: ${MEDIA_SERVER_IMG_NAME}
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Seoul
+    volumes:
+      - "${MEDIA_SERVER_LOG_PATH_ROOT}:/media-server/logs"
+      - "${MEDIA_SERVER_CONF_PATH_ROOT}:/media-server/mediamtx.yml:ro"
+    network_mode: host
