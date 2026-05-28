@@ -3,9 +3,13 @@ services:
     container_name: ${MEDIA_SERVER_CONT_NAME}
     image: ${MEDIA_SERVER_IMG_NAME}
     restart: unless-stopped
+    ports:
+      - "8889:8889"
+      - "8189:8189/udp"
     environment:
       - TZ=Asia/Seoul
+      - MTX_WEBRTCADDITIONALHOSTS=${HOST_EXT_IP}
     volumes:
-      - "${MEDIA_SERVER_LOG_PATH_ROOT}:/media-server/logs"
-      - "${MEDIA_SERVER_CONF_PATH_ROOT}:/media-server/mediamtx.yml:ro"
-    network_mode: host
+      - "${MEDIA_SERVER_LOG_PATH_ROOT}:/app/logs"
+      - "${MEDIA_SERVER_CONF_PATH_ROOT}:/app/mediamtx-orig.yml:ro"
+      - "${CAMERA_CONF_PATH_ROOT}:/app/cam_conf:ro"
